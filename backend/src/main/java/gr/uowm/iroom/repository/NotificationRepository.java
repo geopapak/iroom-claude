@@ -16,6 +16,6 @@ public interface NotificationRepository extends JpaRepository<Notification, Long
     @Query("SELECT COUNT(n) FROM Notification n WHERE n.status = 0")
     Long countPendingNotifications();
 
-    @Query("SELECT n FROM Notification n WHERE n.status = 0 ORDER BY n.createdAt DESC")
+    @Query("SELECT n FROM Notification n WHERE n.status = 0 ORDER BY n.id DESC")
     List<Notification> findAllPending();
 }
