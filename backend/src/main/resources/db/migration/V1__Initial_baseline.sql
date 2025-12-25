@@ -1,0 +1,73 @@
+-- =====================================================
+-- iRoom Database - Initial Baseline Migration
+-- =====================================================
+-- This is a baseline migration for the existing database.
+-- The database already contains all tables, so this migration
+-- serves as a reference point for future schema changes.
+--
+-- Database: iRoom
+-- Tables: 30 tables for university room scheduling
+-- Charset: utf8mb4 (Greek language support)
+-- =====================================================
+
+-- NOTE: This migration uses baseline-on-migrate=true
+-- which means Flyway will recognize the existing database
+-- and mark this migration as already applied.
+
+-- Future migrations should be added as:
+-- V2__description.sql
+-- V3__description.sql
+-- etc.
+
+-- =====================================================
+-- Existing Tables (documented for reference):
+-- =====================================================
+--
+-- Core Tables:
+-- - University: Universities in the system
+-- - Department: Academic departments
+-- - User: Professors and users
+-- - Admin: System administrators
+-- - UserType: User role types
+-- - Password: User authentication
+--
+-- Course Management:
+-- - Course: Course catalog
+-- - Semester: Academic semesters
+-- - SemesterCourse: Courses per semester
+-- - CourseProfessor: Course-professor assignments
+-- - Kateuthinsi: Academic tracks/specializations
+-- - CourseKateuthinsi: Course-track relationships
+-- - CourseDepart: Course-department relationships
+-- - MyCourse: Student course enrollments
+--
+-- Room Management:
+-- - Room: Available rooms
+-- - Equipment: Equipment catalog
+-- - EquipmentRoom: Room-equipment assignments
+-- - RoomDepart: Room-department assignments
+-- - EquipmentDepart: Equipment-department assignments
+--
+-- Scheduling:
+-- - Day: Days of the week
+-- - Hour: Time slots
+-- - Schedule: Scheduling periods
+-- - Programme: Main schedule entries
+-- - ProgrammeRooms: Room assignments for schedule entries
+-- - ProgrammeHistory: Schedule change history
+-- - ProgrammeRoomsHistory: Room assignment history
+--
+-- Exam Scheduling:
+-- - ExamDay: Exam dates
+-- - ExamProgramme: Exam schedule entries
+-- - ExamProgrammeRooms: Room assignments for exams
+--
+-- System:
+-- - Notification: Room booking requests and notifications
+-- - AdminSem: Admin-semester assignments
+--
+-- =====================================================
+
+-- This migration intentionally left empty.
+-- The database schema is already in place.
+-- All future schema changes should be added as new migrations.
