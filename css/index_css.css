@@ -1,0 +1,299 @@
+/*RESET*/
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {margin:0; padding:0; border:0; outline:0; font-size:100%; vertical-align:baseline; background:transparent;} body {line-height: 1;}ol, ul{list-style:none;} blockquote, q{quotes:none;} blockquote:before, blockquote:after, q:before, q:after{content:'';content:none;} :focus{outline:0;} ins{text-decoration:none;} del{text-decoration:line-through;} table{border-collapse:collapse; border-spacing:0;}
+
+/*MAIN*/
+body { 
+	background-color: rgb(237, 237, 239);
+    background-position-x: 0%;
+    background-position-y: 0%;
+    background-repeat: repeat;
+    background-attachment: scroll;
+    background-image: url(../img/body_img.png);
+    background-size: auto auto;
+    background-origin: padding-box;
+    background-clip: border-box;
+
+}
+
+a {
+
+	color: #e89a20;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+a:hover {
+
+	color: #000;
+}
+
+img {
+
+	width: 100%;
+
+}
+
+header {
+
+	background: url(../img/index_header.jpg) repeat center;
+
+	width: 100%;
+	height: 76px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	border-bottom: 4px solid #e89a20;
+	z-index: 100;
+
+}
+
+#logo{
+
+	margin: 13px;
+	float: left;
+	width: 300px;
+	height: 57px;
+	background: url(../img/index_logo.png) no-repeat center;
+	display: block;
+
+}
+
+nav {
+
+	float: right;
+	padding: 20px;	
+	
+}
+
+#menu-icon {
+	background-color: black;
+	display: none;
+	width: 40px;
+	height: 40px;
+	background: #000 url(../img/menu_icon.png) center;
+
+}
+
+a:hover#menu-icon {
+
+	background-color: #444;
+	border-radius: 4px 4px 0 0;
+
+}
+
+ul {
+
+	list-style: none;
+
+}
+
+li {
+
+	display: inline-block;
+	float: left;
+	padding: 10px
+
+}
+
+.current {
+
+	color: #000;
+
+}
+
+section {
+
+	margin: 13% auto 40px;
+	max-width: 980px;
+	position: relative;
+	padding: 20px
+
+}
+
+h1 {
+
+	font-size: 2em;
+	color: #2262AD;
+	line-height: 1.15em;
+	margin: 20px 0 ;
+
+}
+
+p {
+
+	line-height: 1.45em;
+	margin-bottom: 20px;
+
+}
+
+/*MEDIA QUERY*/
+@media only screen and (max-width : 640px) {
+
+	header {
+
+		position: absolute;
+
+	}
+
+	#menu-icon {
+
+		display:inline-block;
+
+	}
+
+	nav ul, nav:active ul { 
+
+		display: none;
+		position: absolute;
+		padding: 20px;
+		background: #fff;
+		border: 5px solid #444;
+		right: 20px;
+		top: 60px;
+		width: 50%;
+		border-radius: 4px 0 4px 4px;
+
+	}
+
+	nav li {
+
+		text-align: center;
+		width: 100%;
+		padding: 10px 0;
+		margin: 0;
+
+	}
+
+	nav:hover ul {
+
+		display: block;
+
+	}
+	
+ }
+
+
+.center-on-page {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+h1 {
+  color: white;
+  text-align: center;
+}
+
+
+
+/* Reset Select */
+select {
+  
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  border: 0 !important;
+  background: url(../img/index_header.jpg);
+  
+}
+/* Custom Select */
+.select {
+  position: relative;
+  display: block;
+
+  height: 3em;
+  line-height: 3;
+  overflow: hidden;
+  border-radius: .25em;
+}
+
+.select-after {
+  position: relative;
+  display: block;
+  height: 3em;
+  line-height: 3;
+  overflow: hidden;
+  border-radius: .25em;
+  float:left;
+  margin: auto;
+}
+
+select {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0 0 0 .5em;
+  color: #000;
+  cursor: pointer;
+}
+select::-ms-expand {
+  display: none;
+}
+/* Arrow */
+.select::after {
+  color: #000;
+  content: '\25BC';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0 1em;
+  background: url(../img/index_header.jpg);
+  pointer-events: none;
+}
+/* Transition */
+.select:hover::after {
+  color: #e89a20;
+
+}
+.select::after {
+  -webkit-transition: .25s all ease;
+  -o-transition: .25s all ease;
+  transition: .25s all ease;
+}
+.select-after ::after {
+  color: #000;
+  content: '\25BC';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0 1em;
+  background: url(../img/index_header.jpg);
+  pointer-events: none;
+}
+/* Transition */
+.select-after :hover::after {
+  color: #e89a20;
+
+}
+.select-after ::after {
+  -webkit-transition: .25s all ease;
+  -o-transition: .25s all ease;
+  transition: .25s all ease;
+}
+
+footer{
+   background: url(../img/index_header.jpg);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: #000;
+	padding-bottom: 0px;
+	margin-bottom: 0px;
+}
+
+footer p {
+    padding: 10.5px;
+    margin: 0px;
+    line-height: 100%;
+}
+
+footer a{color: #000 ;}
+
+footer a:hover{color: #e89a20;}

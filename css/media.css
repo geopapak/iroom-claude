@@ -1,0 +1,22 @@
+@media print {
+
+header, footer,a,button,input,span,form,#tab,#titlos,hr,.modal,#select,#Allcourse{
+display: none!important;
+}
+
+#myTable tbody td{
+	font-size: 8px !important;
+	margin: 0px!important;
+	max-height: 5vh!important; 
+	padding: 0!important;
+}
+#myTable thead tr{
+	font-size: 8px !important;
+	margin: 0px!important;
+	height: 1vh!important; 
+	padding: 0!important;
+}
+thead   {display: table-header-group;   }
+
+tfoot   {display: table-footer-group;   }
+}

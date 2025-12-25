@@ -1,0 +1,52 @@
+
+#myTable {
+    border-collapse: collapse;
+    width: 90%;
+	 margin-left:5%;
+	 margin-right:5%;
+	 margin-bottom:5%;
+}
+
+#myTable td, #myTable th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+#myTable tr{background-color: #fff;}
+#myTable tr:nth-child(even){background-color: #f2f2f2;}
+
+#myTable tr:hover {background-color: #ddd;}
+
+#myTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #000;
+    color: white;
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+#myInput {
+  font-size: 16px;
+  padding: 0 10px 2px 20px;
+  border: 1px solid #ddd;
+  float: right;
+  .paging-nav {
+  text-align: right;
+}
+
+  .like-button {
+         background-color: #1c87c9;
+         border: none;
+         color: white;
+         padding: 20px 34px;
+         text-align: center;
+         text-decoration: none;
+         display: inline-block;
+         font-size: 10px;
+         margin: 4px 2px;
+         cursor: pointer;
+         }
