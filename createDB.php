@@ -12,17 +12,19 @@ include 'errorReporting.php';
 ini_set('display_errors',1);
 
 
-$host = "/home/ictest00614/mysql/run/mysql.sock";
-$host = '/var/db/mysql/mysql.sock';
+// LOCAL DEVELOPMENT SETTINGS
+// Update these for your local MySQL installation
+$host = "localhost";  // or '127.0.0.1'
 
-$user = 'irooms';
-$pass = 'irooms444';
-$dbname = 'irooms2';
+$user = 'root';        // Your MySQL username (typically 'root' for local dev)
+$pass = '';            // Your MySQL password (leave empty if no password)
+$dbname = 'iRoom';
 
 
 try
 {
- 	$dbh = new PDO("mysql:unix_socket=$host", $user,$pass);
+ 	// Using TCP connection for local development
+ 	$dbh = new PDO("mysql:host=$host;charset=utf8", $user, $pass);
  	$dbh->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 	
 	$dbh->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
