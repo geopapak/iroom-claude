@@ -15,6 +15,9 @@ public interface ProgrammeRepository extends JpaRepository<Programme, Long> {
 
     List<Programme> findByUserId(Long userId);
 
+    @Query("SELECT p FROM Programme p WHERE p.user.id = :userId AND p.schedule.id = :scheduleId")
+    List<Programme> findByUserIdAndScheduleId(@Param("userId") Long userId, @Param("scheduleId") Long scheduleId);
+
     @Query("SELECT p FROM Programme p WHERE p.day.id = :dayId AND p.hour.id = :hourId AND p.schedule.id = :scheduleId")
     List<Programme> findByDayAndHourAndSchedule(
         @Param("dayId") Long dayId,

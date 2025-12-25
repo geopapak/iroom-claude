@@ -39,8 +39,24 @@ public class ScheduleService {
         Schedule schedule = scheduleRepository.findById(scheduleId)
                 .orElseThrow(() -> new ResourceNotFoundException("Schedule", "id", scheduleId));
 
+        // Get the professor for this course
+        User professor = null;
+        if (userId != null) {
+            // Use provided userId
+            professor = new User();
+            professor.setId(userId);
+        } else {
+            // Try to get from course professors
+            if (semesterCourse.getCourse().getProfessors() != null &&
+                !semesterCourse.getCourse().getProfessors().isEmpty()) {
+                professor = semesterCourse.getCourse().getProfessors().iterator().next().getProfessor();
+            } else {
+                throw new BadRequestException("Δεν βρέθηκε καθηγητής για το μάθημα");
+            }
+        }
+
         // Check conflicts
-        checkProfessorConflict(userId, dayId, hourId, scheduleId);
+        checkProfessorConflict(professor.getId(), dayId, hourId, scheduleId);
         checkRoomConflicts(roomIds, dayId, hourId, scheduleId);
         checkSemesterConflicts(semesterCourse, dayId, hourId, scheduleId);
 
@@ -49,14 +65,16 @@ public class ScheduleService {
                 .semesterCourse(semesterCourse)
                 .day(day)
                 .hour(hour)
-                .user(semesterCourse.getCourse().getProfessors().iterator().next().getProfessor())
+                .user(professor)
                 .schedule(schedule)
                 .build();
 
         programme = programmeRepository.save(programme);
 
         // Add room assignments
-        Integer dayHourId = Integer.parseInt(hourId.toString() + dayId.toString());
+        // dayHourId format: hourId (1-2 digits) + dayId (1 digit)
+        // Example: hour 10, day 3 = 103
+        Integer dayHourId = Integer.parseInt(String.valueOf(hourId) + String.valueOf(dayId));
         for (Long roomId : roomIds) {
             Room room = roomRepository.findById(roomId)
                     .orElseThrow(() -> new ResourceNotFoundException("Room", "id", roomId));
@@ -137,7 +155,7 @@ public class ScheduleService {
     }
 
     public List<Programme> getScheduleByProfessor(Long userId, Long scheduleId) {
-        return programmeRepository.findByUserId(userId);
+        return programmeRepository.findByUserIdAndScheduleId(userId, scheduleId);
     }
 
     @Transactional
