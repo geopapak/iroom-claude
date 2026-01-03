@@ -61,4 +61,48 @@ export const notificationAPI = {
   reject: (id) => api.delete(`/notifications/${id}`)
 };
 
+export const roomAPI = {
+  getAll: () => api.get('/rooms'),
+  getById: (id) => api.get(`/rooms/${id}`),
+  getByDepartment: (departmentId) => api.get(`/rooms/department/${departmentId}`),
+  create: (data) => api.post('/rooms', data),
+  update: (id, data) => api.put(`/rooms/${id}`, data),
+  delete: (id) => api.delete(`/rooms/${id}`)
+};
+
+export const courseAPI = {
+  getAll: () => api.get('/courses'),
+  getById: (id) => api.get(`/courses/${id}`),
+  getByDepartment: (departmentId) => api.get(`/courses/department/${departmentId}`),
+  getBySemester: (semesterId) => api.get(`/courses/semester/${semesterId}`),
+  getByYear: (year) => api.get(`/courses/year/${year}`),
+  create: (data) => api.post('/courses', data),
+  update: (id, data) => api.put(`/courses/${id}`, data),
+  delete: (id) => api.delete(`/courses/${id}`)
+};
+
+export const equipmentAPI = {
+  getAll: () => api.get('/equipment'),
+  getById: (id) => api.get(`/equipment/${id}`),
+  create: (data) => api.post('/equipment', data),
+  update: (id, data) => api.put(`/equipment/${id}`, data),
+  delete: (id) => api.delete(`/equipment/${id}`)
+};
+
+export const departmentAPI = {
+  getAll: () => api.get('/departments'),
+  getById: (id) => api.get(`/departments/${id}`),
+  create: (data) => api.post('/departments', data),
+  update: (id, data) => api.put(`/departments/${id}`, data),
+  delete: (id) => api.delete(`/departments/${id}`)
+};
+
+export const userAPI = {
+  getAll: () => api.get('/users'),
+  getById: (id) => api.get(`/users/${id}`),
+  create: (data) => api.post('/users', data),
+  update: (id, data) => api.put(`/users/${id}`, data),
+  delete: (id) => api.delete(`/users/${id}`)
+};
+
 export default api;
