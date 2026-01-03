@@ -8,6 +8,8 @@ import useAuthStore from '../store/authStore';
 import RoomManagement from '../components/management/RoomManagement';
 import CourseManagement from '../components/management/CourseManagement';
 import EquipmentManagement from '../components/management/EquipmentManagement';
+import UserManagement from '../components/management/UserManagement';
+import DepartmentManagement from '../components/management/DepartmentManagement';
 
 function AdminDashboard() {
   const navigate = useNavigate();
@@ -49,6 +51,8 @@ function AdminDashboard() {
             <Tab label="Αίθουσες" />
             <Tab label="Μαθήματα" />
             <Tab label="Εξοπλισμός" />
+            <Tab label="Χρήστες" />
+            <Tab label="Τμήματα" />
           </Tabs>
         </Box>
 
@@ -56,6 +60,8 @@ function AdminDashboard() {
           {tabValue === 0 && <RoomManagement />}
           {tabValue === 1 && <CourseManagement />}
           {tabValue === 2 && <EquipmentManagement />}
+          {tabValue === 3 && <UserManagement />}
+          {tabValue === 4 && <DepartmentManagement />}
         </Box>
       </Container>
     </Box>
