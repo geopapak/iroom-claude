@@ -558,7 +558,7 @@ INSERT INTO `admin` (`name`, `last_name`, `phone`, `email`, `user_type`, `pass`)
         NULL,
         'admin@iroom.gr',
         'Διαχειριστής',
-        '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy'
+        '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYCjY9qMvqm'
     )
 ON DUPLICATE KEY UPDATE `email`=VALUES(`email`);
 
