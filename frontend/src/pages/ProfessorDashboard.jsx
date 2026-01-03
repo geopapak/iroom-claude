@@ -6,6 +6,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from 'react-router-dom';
 import useAuthStore from '../store/authStore';
 import ScheduleGrid from '../components/ScheduleGrid';
+import RoomBooking from '../components/RoomBooking';
 
 function ProfessorDashboard() {
   const navigate = useNavigate();
@@ -60,14 +61,7 @@ function ProfessorDashboard() {
 
         {tabValue === 2 && (
           <Paper sx={{ p: 3, mt: 3 }}>
-            <Typography variant="h6" gutterBottom>
-              Κράτηση Αίθουσας
-            </Typography>
-            <Typography variant="body1" color="text.secondary">
-              Η λειτουργικότητα κράτησης αιθουσών θα υλοποιηθεί σύντομα.
-              Οι καθηγητές θα μπορούν να υποβάλλουν αιτήματα κράτησης που θα
-              εγκρίνονται από τη Γραμματεία.
-            </Typography>
+            <RoomBooking />
           </Paper>
         )}
       </Container>
