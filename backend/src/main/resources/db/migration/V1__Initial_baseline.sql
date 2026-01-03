@@ -1,23 +1,17 @@
 -- =====================================================
 -- iRoom Database - Initial Baseline Migration
 -- =====================================================
--- This is a baseline migration for the existing database.
--- The database already contains all tables, so this migration
--- serves as a reference point for future schema changes.
+-- This baseline migration is intentionally empty because
+-- Flyway is configured with baseline-on-migrate=true.
 --
--- Database: iRoom
--- Tables: 30 tables for university room scheduling
--- Charset: utf8mb4 (Greek language support)
+-- The actual table creation is in V2__Create_all_tables.sql
+--
+-- This migration serves as version 0 (the baseline) and
+-- Flyway will start executing from V2 onwards.
 -- =====================================================
 
--- NOTE: This migration uses baseline-on-migrate=true
--- which means Flyway will recognize the existing database
--- and mark this migration as already applied.
-
--- Future migrations should be added as:
--- V2__description.sql
--- V3__description.sql
--- etc.
+-- Baseline version - no SQL to execute
+-- V2 migration will create all tables
 
 -- =====================================================
 -- Existing Tables (documented for reference):
