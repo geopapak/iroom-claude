@@ -2,6 +2,7 @@ package gr.uowm.iroom.controller;
 
 import gr.uowm.iroom.dto.AuthResponse;
 import gr.uowm.iroom.dto.LoginRequest;
+import gr.uowm.iroom.dto.RegisterRequest;
 import gr.uowm.iroom.security.UserPrincipal;
 import gr.uowm.iroom.service.AuthService;
 import jakarta.validation.Valid;
@@ -19,6 +20,12 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
         AuthResponse response = authService.login(loginRequest);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequest registerRequest) {
+        AuthResponse response = authService.register(registerRequest);
         return ResponseEntity.ok(response);
     }
 
