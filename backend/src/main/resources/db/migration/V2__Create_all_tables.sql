@@ -543,8 +543,34 @@ INSERT INTO `type_user` (`type`) VALUES
 ON DUPLICATE KEY UPDATE `type`=VALUES(`type`);
 
 -- =====================================================
+-- Insert Default Admin User for Initial Login
+-- =====================================================
+-- Default credentials:
+--   Email: admin@iroom.gr
+--   Password: admin
+-- IMPORTANT: Change this password after first login!
+-- =====================================================
+
+INSERT INTO `admin` (`name`, `last_name`, `phone`, `email`, `user_type`, `pass`) VALUES
+    (
+        'Admin',
+        'User',
+        NULL,
+        'admin@iroom.gr',
+        'Διαχειριστής',
+        '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy'
+    )
+ON DUPLICATE KEY UPDATE `email`=VALUES(`email`);
+
+-- =====================================================
 -- Migration Complete
 -- =====================================================
 -- All 30 tables have been created successfully
 -- Database is ready for use with the iRoom application
+--
+-- Default Login Credentials:
+--   Email: admin@iroom.gr
+--   Password: admin
+--
+-- IMPORTANT: Change the default password immediately after first login!
 -- =====================================================
