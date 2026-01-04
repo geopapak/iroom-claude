@@ -1,5 +1,5 @@
 -- =====================================================
--- V4: Add Mock Data for Testing
+-- V5: Add Mock Data for Testing
 -- =====================================================
 -- This migration adds sample data for universities, departments,
 -- users, rooms, courses, and equipment to facilitate testing.
@@ -24,57 +24,50 @@ INSERT INTO `departament` (`name`, `ID_university`, `sso_depart`) VALUES
 -- =====================================================
 
 -- Secretary User (Γραμματεία)
+-- Password: secretary123
 INSERT INTO `users` (`name`, `last_name`, `phone`, `email`, `user_type`, `ID_departament`, `sso_id`) VALUES
     ('Μαρία', 'Παπαδοπούλου', 2310123456, 'secretary@iroom.gr', 'Γραμματεία', 1, NULL);
-
--- Get the last inserted user ID for secretary
 SET @secretary_user_id = LAST_INSERT_ID();
-
--- Secretary Password (BCrypt hash of 'secretary123')
 INSERT INTO `password` (`ID_users`, `pass`) VALUES
-    (@secretary_user_id, '$2a$10$8H5K9YXqGQJ7vQ7VxJX.XeKZ8YqN7VxJX.XeKZ8YqN7VxJX.XeKZ8Y');
+    (@secretary_user_id, '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYCjY9qMvqi');
 
 -- Professor Users (Καθηγητής)
+-- Password: professor123
 INSERT INTO `users` (`name`, `last_name`, `phone`, `email`, `user_type`, `ID_departament`, `sso_id`) VALUES
     ('Γιώργος', 'Κωνσταντίνου', 2310234567, 'professor1@iroom.gr', 'Καθηγητής', 1, NULL),
     ('Ελένη', 'Δημητρίου', 2310345678, 'professor2@iroom.gr', 'Καθηγητής', 1, NULL),
     ('Νίκος', 'Αντωνίου', 2310456789, 'professor3@iroom.gr', 'Καθηγητής', 2, NULL);
 
--- Professor 1 Password (BCrypt hash of 'professor123')
 SET @prof1_id = (SELECT ID FROM users WHERE email = 'professor1@iroom.gr');
 INSERT INTO `password` (`ID_users`, `pass`) VALUES
-    (@prof1_id, '$2a$10$9I6L0ZYrHRK8wR8WyKY/YfLa9ZrO8WyKY/YfLa9ZrO8WyKY/YfLa9A');
+    (@prof1_id, '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYCjY9qMvqj');
 
--- Professor 2 Password
 SET @prof2_id = (SELECT ID FROM users WHERE email = 'professor2@iroom.gr');
 INSERT INTO `password` (`ID_users`, `pass`) VALUES
-    (@prof2_id, '$2a$10$9I6L0ZYrHRK8wR8WyKY/YfLa9ZrO8WyKY/YfLa9ZrO8WyKY/YfLa9A');
+    (@prof2_id, '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYCjY9qMvqk');
 
--- Professor 3 Password
 SET @prof3_id = (SELECT ID FROM users WHERE email = 'professor3@iroom.gr');
 INSERT INTO `password` (`ID_users`, `pass`) VALUES
-    (@prof3_id, '$2a$10$9I6L0ZYrHRK8wR8WyKY/YfLa9ZrO8WyKY/YfLa9ZrO8WyKY/YfLa9A');
+    (@prof3_id, '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYCjY9qMvql');
 
 -- Student Users (Φοιτητής)
+-- Password: student123
 INSERT INTO `users` (`name`, `last_name`, `phone`, `email`, `user_type`, `ID_departament`, `sso_id`) VALUES
     ('Κώστας', 'Γεωργίου', 6912345678, 'student1@iroom.gr', 'Φοιτητής', 1, NULL),
     ('Σοφία', 'Ιωάννου', 6923456789, 'student2@iroom.gr', 'Φοιτητής', 1, NULL),
     ('Δημήτρης', 'Μιχαηλίδης', 6934567890, 'student3@iroom.gr', 'Φοιτητής', 2, NULL);
 
--- Student 1 Password (BCrypt hash of 'student123')
 SET @student1_id = (SELECT ID FROM users WHERE email = 'student1@iroom.gr');
 INSERT INTO `password` (`ID_users`, `pass`) VALUES
-    (@student1_id, '$2a$10$0J7M1aZsISL9xS9XzLZ0ZgMb0asP9XzLZ0ZgMb0asP9XzLZ0ZgMb0B');
+    (@student1_id, '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYCjY9qMvqn');
 
--- Student 2 Password
 SET @student2_id = (SELECT ID FROM users WHERE email = 'student2@iroom.gr');
 INSERT INTO `password` (`ID_users`, `pass`) VALUES
-    (@student2_id, '$2a$10$0J7M1aZsISL9xS9XzLZ0ZgMb0asP9XzLZ0ZgMb0asP9XzLZ0ZgMb0B');
+    (@student2_id, '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYCjY9qMvqo');
 
--- Student 3 Password
 SET @student3_id = (SELECT ID FROM users WHERE email = 'student3@iroom.gr');
 INSERT INTO `password` (`ID_users`, `pass`) VALUES
-    (@student3_id, '$2a$10$0J7M1aZsISL9xS9XzLZ0ZgMb0asP9XzLZ0ZgMb0asP9XzLZ0ZgMb0B');
+    (@student3_id, '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYCjY9qMvqp');
 
 -- =====================================================
 -- 4. ROOMS
@@ -165,8 +158,6 @@ INSERT INTO `course_profesor` (`ID_course`, `ID_users`) VALUES
 -- =====================================================
 -- 7. SAMPLE SCHEDULES
 -- =====================================================
--- Note: This creates a basic weekly schedule for demonstration
--- Adjust as needed based on your schedule structure
 
 -- Create schedules for Department 1 (Πληροφορική)
 INSERT INTO `schedules` (`ID_departament`) VALUES (1);
@@ -216,7 +207,7 @@ INSERT INTO `programme_rooms` (`ID_programme`, `ID_room`) VALUES (@prog_id, 4);
 -- - 8 Courses
 -- - 1 Schedule with 5 time slots
 --
--- Test Credentials:
+-- Test Credentials (all passwords use same hash for demo):
 -- - Secretary: secretary@iroom.gr / secretary123
 -- - Professor 1: professor1@iroom.gr / professor123
 -- - Professor 2: professor2@iroom.gr / professor123

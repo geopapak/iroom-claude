@@ -38,13 +38,13 @@ function LoginPage() {
         case 'Διαχειριστής':
           navigate('/admin');
           break;
-        case 'Γραμματεια':
+        case 'Γραμματεία':
           navigate('/secretariat');
           break;
         case 'Καθηγητής':
           navigate('/professor');
           break;
-        case 'Φοιτητης':
+        case 'Φοιτητής':
           navigate('/student');
           break;
         default:
