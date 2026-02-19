@@ -38,6 +38,6 @@ public class Admin extends BaseEntity {
     private String userType; // Διαχειριστής
 
     @NotBlank(message = "Password is required")
-    @Column(name = "pass", nullable = false, length = 255)
+    @Column(name = "password", nullable = false, length = 255)
     private String passwordHash;
 }

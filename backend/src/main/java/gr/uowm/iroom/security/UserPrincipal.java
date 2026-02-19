@@ -43,8 +43,8 @@ public class UserPrincipal implements UserDetails {
     private static String mapUserType(String userType) {
         return switch (userType) {
             case "Καθηγητής" -> "PROFESSOR";
-            case "Φοιτητης" -> "STUDENT";
-            case "Γραμματεια" -> "SECRETARIAT";
+            case "Φοιτητής" -> "STUDENT";
+            case "Γραμματεία" -> "SECRETARIAT";
             case "Διαχειριστής" -> "ADMIN";
             default -> "USER";
         };
