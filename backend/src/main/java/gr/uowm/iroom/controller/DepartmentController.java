@@ -33,6 +33,12 @@ public class DepartmentController {
         return ResponseEntity.ok(departments);
     }
 
+    @GetMapping("/university/{universityId}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('SECRETARIAT')")
+    public ResponseEntity<List<Department>> getDepartmentsByUniversity(@PathVariable Long universityId) {
+        return ResponseEntity.ok(departmentService.getDepartmentsByUniversity(universityId));
+    }
+
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('SECRETARIAT')")
     public ResponseEntity<Department> getDepartmentById(@PathVariable Long id) {

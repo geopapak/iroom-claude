@@ -39,6 +39,11 @@ public class DepartmentService {
     }
 
     @Transactional(readOnly = true)
+    public List<Department> getDepartmentsByUniversity(Long universityId) {
+        return departmentRepository.findByUniversityId(universityId);
+    }
+
+    @Transactional(readOnly = true)
     public Department getDepartmentById(Long id) {
         return departmentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Department not found with id: " + id));
