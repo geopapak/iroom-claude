@@ -1,107 +1,95 @@
 # iRoom - Room Scheduling System
 
-A PHP-based room scheduling and management system for universities.
+University room scheduling and management system built with React + Spring Boot.
 
-## Features
+## Tech Stack
 
-- Course and room management
-- Schedule creation and management
-- User authentication (CAS/SSO support)
-- Equipment tracking
-- Exam scheduling
-- Department and university management
+- **Frontend:** React 19, Vite, Material UI
+- **Backend:** Spring Boot 3, Java 17
+- **Database:** MySQL 8
+- **Auth:** JWT
+
+## Prerequisites
+
+- [Docker](https://docs.docker.com/get-docker/) & Docker Compose
+- [Java 17+](https://adoptium.net/)
+- [Maven 3.8+](https://maven.apache.org/)
+- [Node.js 18+](https://nodejs.org/)
 
 ## Quick Start
 
-### Prerequisites
+### 1. Start Database (MySQL via Docker)
 
-- PHP 7.0 or higher
-- MySQL 5.7+ or MariaDB 10.2+
-- Apache/Nginx or PHP built-in server
+```bash
+./start-mysql-docker.sh
+# Windows: docker-start.bat
+```
 
-### Installation
+MySQL runs on `localhost:3306`, phpMyAdmin on `http://localhost:8081`.
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url> iroom-claude
-   cd iroom-claude
-   ```
+### 2. Start Backend (Spring Boot)
 
-2. **Configure database connection**
-   ```bash
-   # Update connectDB.php with your database credentials
-   # Default settings are for localhost development
-   ```
+```bash
+cd backend
+mvn spring-boot:run
+```
 
-3. **Create database and tables**
-   ```bash
-   # Update createDB.php with your MySQL credentials
-   php createDB.php
-   ```
+Backend runs on `http://localhost:8080`.
 
-4. **Start the development server**
-   ```bash
-   # Using quick-start script
-   ./quick-start.sh
+### 3. Start Frontend (React + Vite)
 
-   # Or manually with PHP built-in server
-   php -S localhost:8000
-   ```
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-5. **Access the application**
-   - Open browser: `http://localhost:8000`
-   - Default admin login:
-     - Email: admin@admin.gr
-     - Password: admin
+Frontend runs on `http://localhost:3000`.
 
-## Detailed Setup
+## Default Credentials
 
-For detailed installation and configuration instructions, see [SETUP_GUIDE.md](SETUP_GUIDE.md)
+| Role | Email | Password |
+|------|-------|----------|
+| Admin | admin@admin.gr | admin |
+
+> Change the default password after first login.
 
 ## Project Structure
 
 ```
 iroom-claude/
-├── CAS/                    # CAS authentication library
-├── Course/                 # Course management
-├── Departament_University/ # Department management
-├── Equipment_rooms/        # Equipment and room management
-├── Schedule/               # Schedule management
-├── Semester/               # Semester management
-├── Users/                  # User management
-├── connectDB.php           # Database connection
-├── createDB.php            # Database initialization
-├── index.php               # Main entry point
-└── SETUP_GUIDE.md         # Detailed setup instructions
+├── frontend/          # React + Vite application
+│   ├── src/
+│   │   ├── components/    # UI components
+│   │   ├── pages/         # Page components (dashboards)
+│   │   ├── services/      # API service layer
+│   │   └── store/         # Zustand state management
+│   └── package.json
+├── backend/           # Spring Boot application
+│   └── src/main/java/gr/uowm/iroom/
+│       ├── controller/    # REST endpoints
+│       ├── service/       # Business logic
+│       ├── entity/        # JPA entities
+│       ├── repository/    # Spring Data repositories
+│       ├── dto/           # Request DTOs
+│       ├── security/      # JWT & Spring Security
+│       └── config/        # App configuration
+├── docker-compose.yml     # MySQL + phpMyAdmin
+└── start-mysql-docker.sh  # Helper to start DB
 ```
 
-## Default Credentials
+## API Endpoints
 
-After running `createDB.php`, use these credentials to login:
+| Resource | Base URL |
+|----------|----------|
+| Auth | `/api/auth` |
+| Users | `/api/users` |
+| Departments | `/api/departments` |
+| Rooms | `/api/rooms` |
+| Courses | `/api/courses` |
+| Equipment | `/api/equipment` |
+| Schedules | `/api/schedules` |
 
-- **Email:** admin@admin.gr
-- **Password:** admin
+## Database
 
-**⚠️ Change these credentials immediately in production!**
-
-## Technology Stack
-
-- **Backend:** PHP
-- **Database:** MySQL/MariaDB
-- **Frontend:** HTML, CSS, JavaScript
-- **Authentication:** CAS/SSO (optional for local development)
-
-## Development
-
-- PHP files are in the root and subdirectories
-- CSS files in `/css`
-- JavaScript files in `/js`
-- No build process required - changes reflect immediately
-
-## Support
-
-For detailed setup instructions, troubleshooting, and configuration options, see [SETUP_GUIDE.md](SETUP_GUIDE.md)
-
-## License
-
-[Add your license information here]
+Schema is managed with [Flyway](https://flywaydb.org/) migrations located in `backend/src/main/resources/db/migration/`.
