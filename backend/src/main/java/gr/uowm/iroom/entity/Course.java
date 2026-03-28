@@ -1,5 +1,6 @@
 package gr.uowm.iroom.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -37,10 +38,12 @@ public class Course extends BaseEntity {
     @Column(name = "optional", nullable = false, length = 3)
     private OptionalStatus optional;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Builder.Default
     private Set<SemesterCourse> semesterCourses = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Builder.Default
     private Set<CourseProfessor> professors = new HashSet<>();
