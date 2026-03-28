@@ -1,5 +1,6 @@
 package gr.uowm.iroom.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -33,10 +34,12 @@ public class Department extends BaseEntity {
     @Column(name = "sso_depart", nullable = false)
     private Integer ssoDepart;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Builder.Default
     private Set<User> users = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Builder.Default
     private Set<Kateuthinsi> kateuthinsiList = new HashSet<>();

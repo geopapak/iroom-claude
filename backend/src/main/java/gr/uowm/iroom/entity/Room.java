@@ -1,5 +1,6 @@
 package gr.uowm.iroom.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -23,6 +24,7 @@ public class Room extends BaseEntity {
     @Column(name = "name", nullable = false, length = 50)
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Builder.Default
     private Set<EquipmentRoom> equipment = new HashSet<>();
