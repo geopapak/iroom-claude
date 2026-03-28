@@ -1,93 +1,103 @@
 #!/bin/bash
 
-# iRoom Quick Start Script for Local Development
-# This script helps you get started with the iRoom project
-
 echo "========================================="
-echo "iRoom - Local Development Quick Start"
+echo "iRoom - Quick Start (React + Spring Boot)"
 echo "========================================="
 echo ""
 
-# Check if PHP is installed
-if ! command -v php &> /dev/null; then
-    echo "❌ PHP is not installed. Please install PHP 7.0 or higher."
-    exit 1
-fi
+ERRORS=0
 
-echo "✓ PHP is installed: $(php -v | head -n 1)"
-
-# Check if MySQL is installed
-if ! command -v mysql &> /dev/null; then
-    echo "❌ MySQL is not installed. Please install MySQL or MariaDB."
-    exit 1
-fi
-
-echo "✓ MySQL is installed: $(mysql --version)"
-echo ""
-
-# Check if connectDB.php exists
-if [ ! -f "connectDB.php" ]; then
-    echo "⚠️  connectDB.php not found. Creating from template..."
-    if [ -f "connectDBTEMPLATE.php" ]; then
-        cp connectDBTEMPLATE.php connectDB.php
-        echo "✓ Created connectDB.php from template"
-        echo "⚠️  Please edit connectDB.php with your database credentials"
-    else
-        echo "❌ connectDBTEMPLATE.php not found"
-    fi
+# Check Docker
+if ! command -v docker &> /dev/null; then
+    echo "❌ Docker is not installed. Install from https://docs.docker.com/get-docker/"
+    ERRORS=1
 else
-    echo "✓ connectDB.php exists"
+    echo "✓ Docker: $(docker --version)"
+fi
+
+# Check Java
+if ! command -v java &> /dev/null; then
+    echo "❌ Java 17+ is not installed. Install from https://adoptium.net/"
+    ERRORS=1
+else
+    echo "✓ Java: $(java -version 2>&1 | head -n 1)"
+fi
+
+# Check Maven
+if ! command -v mvn &> /dev/null; then
+    echo "❌ Maven is not installed. Install from https://maven.apache.org/"
+    ERRORS=1
+else
+    echo "✓ Maven: $(mvn -version 2>&1 | head -n 1)"
+fi
+
+# Check Node.js
+if ! command -v node &> /dev/null; then
+    echo "❌ Node.js 18+ is not installed. Install from https://nodejs.org/"
+    ERRORS=1
+else
+    echo "✓ Node.js: $(node --version)"
 fi
 
 echo ""
-echo "========================================="
-echo "Setup Options"
-echo "========================================="
-echo ""
-echo "1. Setup Database (run createDB.php)"
-echo "2. Start PHP Built-in Server"
-echo "3. View Setup Guide"
-echo "4. Exit"
-echo ""
-read -p "Select an option (1-4): " option
 
-case $option in
-    1)
-        echo ""
-        echo "Setting up database..."
-        echo "⚠️  Make sure you've updated database credentials in createDB.php"
-        read -p "Continue? (y/n): " confirm
-        if [ "$confirm" = "y" ]; then
-            php createDB.php
-            if [ $? -eq 0 ]; then
-                echo "✓ Database setup completed successfully!"
-            else
-                echo "❌ Database setup failed. Please check your credentials and try again."
-            fi
-        fi
-        ;;
-    2)
-        echo ""
-        echo "Starting PHP built-in server..."
-        echo "Server will run at: http://localhost:8000"
-        echo "Press Ctrl+C to stop the server"
-        echo ""
-        php -S localhost:8000
-        ;;
-    3)
-        echo ""
-        if [ -f "SETUP_GUIDE.md" ]; then
-            cat SETUP_GUIDE.md
-        else
-            echo "❌ SETUP_GUIDE.md not found"
-        fi
-        ;;
-    4)
-        echo "Goodbye!"
-        exit 0
-        ;;
-    *)
-        echo "Invalid option"
+if [ $ERRORS -ne 0 ]; then
+    echo "Please install the missing prerequisites and try again."
+    exit 1
+fi
+
+# Step 1: Start MySQL
+echo "Step 1: Starting MySQL with Docker..."
+docker compose up -d mysql
+
+if [ $? -ne 0 ]; then
+    echo "❌ Failed to start MySQL. Check Docker logs: docker logs iroom-mysql"
+    exit 1
+fi
+
+echo "Waiting for MySQL to be ready..."
+elapsed=0
+until docker inspect --format='{{.State.Health.Status}}' iroom-mysql 2>/dev/null | grep -q "healthy"; do
+    sleep 2
+    elapsed=$((elapsed + 2))
+    if [ $elapsed -ge 60 ]; then
+        echo "❌ MySQL did not start in time. Check logs: docker logs iroom-mysql"
         exit 1
-        ;;
-esac
+    fi
+    echo -n "."
+done
+echo ""
+echo "✓ MySQL is ready on localhost:3306"
+echo ""
+
+# Step 2: Install frontend dependencies
+echo "Step 2: Installing frontend dependencies..."
+cd frontend && npm install --silent
+if [ $? -ne 0 ]; then
+    echo "❌ npm install failed"
+    exit 1
+fi
+cd ..
+echo "✓ Frontend dependencies installed"
+echo ""
+
+echo "========================================="
+echo "Setup complete! Start the application:"
+echo "========================================="
+echo ""
+echo "Terminal 1 - Backend:"
+echo "  cd backend && mvn spring-boot:run"
+echo ""
+echo "Terminal 2 - Frontend:"
+echo "  cd frontend && npm run dev"
+echo ""
+echo "Then open: http://localhost:3000"
+echo ""
+echo "Default login:"
+echo "  Email:    admin@admin.gr"
+echo "  Password: admin"
+echo ""
+echo "Optional - phpMyAdmin:"
+echo "  docker compose up -d phpmyadmin"
+echo "  Open: http://localhost:8081"
+echo ""
